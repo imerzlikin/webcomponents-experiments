@@ -1,13 +1,27 @@
 <div class="buttons">
-  <button (click)="registerWebComponents()">Register Much Web Components!</button>
-  <button (click)="addWebComponents()">Add Much Web Components!</button>
-  <button (click)="clearWebComponents()">Clear Web Components</button>
-  <button (click)="destroyAngular()">Destroy Angular</button>
-  <button (click)="allOnce()">All once!</button>
+  <div class="always-new">
+    Always New
+    <label class="switch">
+      <input type="checkbox" [(ngModel)]="sws.alwaysNew">
+      <span class="slider round"></span>
+    </label>
+  </div>
 </div>
-<div>
-  <button (click)="addAngularComponents()">Add Much Angular Components!</button>
-  <button (click)="clearAngularComponents()">Clear Angular Components</button>
+<div class="buttons local-web-components-buttons">
+  <button class="button" (click)="registerLocalWebComponents()">Register Much Web Components!</button>
+  <button class="button" (click)="addLocalWebComponents()">Add Much Web Components!</button>
+  <button class="button" (click)="clearLocalWebComponents()">Clear Web Components</button>
+  <button class="button" (click)="allAtOnce()">All once!</button>
+</div>
+<div class="buttons remote-web-components-buttons">
+  <button class="button" (click)="loadRemoteWebComponents()">Add Much Remote Web Components!</button>
+</div>
+<div class="buttons normal-components-buttons">
+  <button class="button" (click)="addAngularComponents()">Add Much Angular Components!</button>
+  <button class="button" (click)="clearAngularComponents()">Clear Angular Components</button>
+</div>
+<div class="buttons general-buttons">
+  <button class="button" (click)="destroyAngular()">Destroy Angular</button>
 </div>
 <div class="component-container" *ngIf="showAngularComponents">
   <app-simple-web-component *ngFor="let i of angularComponents"></app-simple-web-component>

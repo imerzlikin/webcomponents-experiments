@@ -15,6 +15,6 @@ import {SimpleWebComponentComponent} from './simple-web-component.component';
 })
 export class SimpleWebComponentModule implements OnDestroy {
   ngOnDestroy() {
-    console.log('module destroyed');
+    console.log('SimpleWebComponentModule destroyed');
   }
 }

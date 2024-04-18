@@ -148,7 +148,13 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "ngx-build-plus:dev-server",
+          "options": {
+            "singleBundle": true,
+            "keepStyles": true,
+            "bundleStyles": true,
+            "extraWebpackConfig": "projects/web-component/webpack.config.js"
+          },
           "configurations": {
             "production": {
               "browserTarget": "web-component:build:production"
