@@ -4,7 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start-web-component": "ng serve web-component --port 4300 --live-reload false",
+    "start:prod": "ng serve --configuration production",
+    "start:web-component": "ng serve web-component --port 4300 --live-reload false",
+    "start:web-component:prod": "ng serve web-component  --configuration production --port 4300 --live-reload false",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"

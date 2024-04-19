@@ -1,29 +1,73 @@
-<div class="buttons">
-  <div class="always-new">
-    Always New
-    <label class="switch">
-      <input type="checkbox" [(ngModel)]="sws.alwaysNew">
-      <span class="slider round"></span>
-    </label>
+<div class="buttons-wrapper">
+  <div class="buttons-labels">
+    <span class="buttons-label">Settings</span>
+  </div>
+  <div class="buttons">
+    <div class="always-new">
+      Always New
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="alwaysNew">
+        <span class="slider round"></span>
+      </label>
+    </div>
   </div>
 </div>
-<div class="buttons local-web-components-buttons">
-  <button class="button" (click)="registerLocalWebComponents()">Register Much Web Components!</button>
-  <button class="button" (click)="addLocalWebComponents()">Add Much Web Components!</button>
-  <button class="button" (click)="clearLocalWebComponents()">Clear Web Components</button>
-  <button class="button" (click)="allAtOnce()">All once!</button>
+<div class="buttons-wrapper">
+  <div class="buttons-labels">
+    <span class="buttons-label">{{angularComponents.batchSize}} Angular Components</span>
+    <span class="buttons-label">Added: {{angularComponents.appendedTotal}}</span>
+  </div>
+  <div class="buttons normal-components-buttons">
+    <button class="button" (click)="angularComponents.append()">Add</button>
+    <button class="button" (click)="angularComponents.clear()">Clear</button>
+  </div>
 </div>
-<div class="buttons remote-web-components-buttons">
-  <button class="button" (click)="loadRemoteWebComponents()">Add Much Remote Web Components!</button>
+<div class="buttons-wrapper">
+  <div class="buttons-labels">
+    <span class="buttons-label">{{simpleCustomElements.batchSize}} Simple Web Components</span>
+    <span class="buttons-label">Registered: {{simpleCustomElements.registeredTotal}}</span>
+    <span class="buttons-label">Added: {{simpleCustomElements.appendedTotal}}</span>
+  </div>
+  <div class="buttons local-web-components-buttons">
+    <button class="button" (click)="simpleCustomElements.register()">Register</button>
+    <button class="button" (click)="simpleCustomElements.append()">Add</button>
+    <button class="button" (click)="simpleCustomElements.clear()">Clear</button>
+  </div>
 </div>
-<div class="buttons normal-components-buttons">
-  <button class="button" (click)="addAngularComponents()">Add Much Angular Components!</button>
-  <button class="button" (click)="clearAngularComponents()">Clear Angular Components</button>
+<div class="buttons-wrapper">
+  <div class="buttons-labels">
+    <span class="buttons-label">{{angularCustomElements.batchSize}} Angular Web Components</span>
+    <span class="buttons-label">Registered: {{angularCustomElements.registeredTotal}}</span>
+    <span class="buttons-label">Added: {{angularCustomElements.appendedTotal}}</span>
+  </div>
+  <div class="buttons local-web-components-buttons">
+    <button class="button" (click)="angularCustomElements.register()">Register</button>
+    <button class="button" (click)="angularCustomElements.append()">Add</button>
+    <button class="button" (click)="angularCustomElements.clear()">Clear</button>
+  </div>
 </div>
-<div class="buttons general-buttons">
-  <button class="button" (click)="destroyAngular()">Destroy Angular</button>
+<div class="buttons-wrapper">
+  <div class="buttons-labels">
+    <span class="buttons-label">{{remoteCustomElements.batchSize}} Remote Angular Web Components</span>
+    <span class="buttons-label">Loaded: {{remoteCustomElements.registeredTotal}}</span>
+    <span class="buttons-label">Added: {{remoteCustomElements.appendedTotal}}</span>
+  </div>
+  <div class="buttons remote-web-components-buttons">
+    <button class="button" (click)="remoteCustomElements.register()">Load</button>
+    <button class="button" (click)="remoteCustomElements.register(50)">Load Max 50</button>
+<!--    <button class="button" (click)="remoteCustomElements.append()">Add</button>-->
+    <button class="button" (click)="remoteCustomElements.clear()">Clear</button>
+  </div>
 </div>
-<div class="component-container" *ngIf="showAngularComponents">
-  <app-simple-web-component *ngFor="let i of angularComponents"></app-simple-web-component>
+<div class="buttons-wrapper">
+  <div class="buttons-labels">
+    <span class="buttons-label">General Functions</span>
+  </div>
+  <div class="buttons general-buttons">
+    <button class="button" (click)="destroyAngular()">Destroy Angular</button>
+  </div>
+</div>
+<div class="component-container" *ngIf="angularComponents.components.length > 0">
+  <app-simple-web-component *ngFor="let i of angularComponents.components"></app-simple-web-component>
 </div>
 <div #webComponentContainer class="web-component-container"></div>

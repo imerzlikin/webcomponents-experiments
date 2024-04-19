@@ -1,3 +1,29 @@
+.buttons-labels {
+  display: flex;
+  /*justify-content: space-between;*/
+}
+
+.buttons-wrapper {
+  border: solid #1899d6;
+  border-radius: 16px;
+  border-width: 1px 1px 4px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+
+.buttons-label {
+  color: #a0a0a0;
+  font-family: din-round, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 20px;
+  padding: 16px 16px 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
 .buttons {
   padding: 10px;
   display: flex;
@@ -32,7 +58,6 @@
   user-select: none;
   -webkit-user-select: none;
   vertical-align: middle;
-  white-space: nowrap;
   width: 100%;
 }
 

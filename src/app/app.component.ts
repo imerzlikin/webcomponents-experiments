@@ -1,71 +1,50 @@
-import {Component, ElementRef, Renderer2, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {SimpleWebComponentComponent} from "./simple-web-component/simple-web-component.component";
-import {WebComponentService} from "./services/web-component.service";
 import {platformBrowser} from "@angular/platform-browser";
-import {Subscription} from "rxjs";
+import {SimpleCustomElementsService} from "./services/simple-custom-elements.service";
+import {AngularCustomElementService} from "./services/angular-custom-element.service";
+import {RemoteCustomElementService} from "./services/remote-custom-element.service";
+import {AngularComponentService} from "./services/angular-component.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   @ViewChild('webComponentContainer', {read: ElementRef, static: true}) wcContainer!: ElementRef<HTMLElement>;
 
-  showAngularComponents = false;
-  angularComponents: number[] = [];
+  private _alwaysNew = false;
+
+  set alwaysNew(alwaysNew: boolean) {
+    this._alwaysNew = alwaysNew;
+
+    this.simpleCustomElements.alwaysNew = alwaysNew;
+    this.angularCustomElements.alwaysNew = alwaysNew;
+    this.remoteCustomElements.alwaysNew = alwaysNew;
+  };
+
+  get alwaysNew(): boolean {
+    return this._alwaysNew;
+  }
 
   constructor(
-    readonly sws: WebComponentService,
+    readonly angularComponents: AngularComponentService,
+    readonly simpleCustomElements: SimpleCustomElementsService,
+    readonly angularCustomElements: AngularCustomElementService,
+    readonly remoteCustomElements: RemoteCustomElementService,
     private readonly renderer: Renderer2,
   ) {
+    this.angularCustomElements.component = SimpleWebComponentComponent;
   }
 
-  private registerLocalWebComponent(): string {
-    return this.sws.registerWebComponent(SimpleWebComponentComponent);
-  }
-
-  addLocalWebComponents(): void {
-    this.sws.addRegisteredWebComponents(this.wcContainer.nativeElement, this.renderer);
-  }
-
-  registerLocalWebComponents(): void {
-    for (let i = 0; i < 1000; i++) {
-      this.registerLocalWebComponent();
-    }
-  }
-
-  clearLocalWebComponents(): void {
-    this.sws.clearWebComponents();
-  }
-
-  // all actions together for local web-components
-  allAtOnce() {
-    this.registerLocalWebComponents();
-    this.addLocalWebComponents();
-    this.clearLocalWebComponents();
-    this.destroyAngular();
-  }
-
-  addAngularComponents(): void {
-    this.showAngularComponents = true;
-    for (let i = 0; i < 10000; i++) {
-      this.angularComponents.push(i);
-    }
-  }
-
-  clearAngularComponents() {
-    this.showAngularComponents = false;
-    this.angularComponents = [];
+  ngOnInit() {
+    this.simpleCustomElements.init(this.wcContainer.nativeElement, this.renderer);
+    this.angularCustomElements.init(this.wcContainer.nativeElement, this.renderer);
+    this.remoteCustomElements.init(this.wcContainer.nativeElement, this.renderer);
   }
 
   destroyAngular(): void {
     platformBrowser().destroy();
-  }
-
-  loadRemoteWebComponents() {
-    for (let i = 0; i < 10; i++) {
-      this.sws.loadWebComponent(this.wcContainer.nativeElement, this.renderer);
-    }
   }
 }
