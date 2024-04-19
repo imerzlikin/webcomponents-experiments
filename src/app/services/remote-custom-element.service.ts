@@ -1,6 +1,6 @@
 import {Inject, Injectable, Injector} from "@angular/core";
 import {AbstractCustomElementService} from "./abstract-custom-element.service";
-import {catchError, fromEvent, map, of, race, switchMap, tap} from "rxjs";
+import {catchError, fromEvent, map, of, race, switchMap} from "rxjs";
 import {ajax} from "rxjs/internal/ajax/ajax";
 import {HttpClient} from "@angular/common/http";
 import {DOCUMENT} from "@angular/common";
@@ -9,7 +9,7 @@ import {DOCUMENT} from "@angular/common";
   providedIn: "root"
 })
 export class RemoteCustomElementService extends AbstractCustomElementService {
-  batchSize = 1;
+  batchSize = 1000;
 
   private readonly remoteWebComponentUrl = 'http://localhost:4300/main.js';
   private remoteWebComponentScripts: HTMLScriptElement[] = [];
@@ -23,17 +23,17 @@ export class RemoteCustomElementService extends AbstractCustomElementService {
   }
 
   protected registryElement() {
-    this.load().pipe(tap(webComponentName => {
-      if (this.container && this.renderer) {
-        this.appendElement(webComponentName, this.container, this.renderer);
-      }
-    })).subscribe();
+    this.load().subscribe();
   }
 
   private load() {
     const webComponentName = this.generateName('remote');
 
     this.customElementNames.push(webComponentName);
+
+    if (this.container && this.renderer) {
+      this.appendElement(webComponentName, this.container, this.renderer);
+    }
 
     const script = this.createScriptElement(`${this.remoteWebComponentUrl}#${webComponentName}`);
 
