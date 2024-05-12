@@ -9,7 +9,7 @@ import {DOCUMENT} from "@angular/common";
   providedIn: "root"
 })
 export class RemoteCustomElementService extends AbstractCustomElementService {
-  batchSize = 1000;
+  batchSize = 10;
 
   private readonly remoteWebComponentUrl = 'http://localhost:4300/main.js';
   private remoteWebComponentScripts: HTMLScriptElement[] = [];
