@@ -8,6 +8,10 @@ import {Component, OnDestroy} from '@angular/core';
 export class SimpleWebComponentComponent implements OnDestroy {
   count = Math.floor(Math.random() * 1000);
 
+  constructor() {
+    console.log('i am SimpleWebComponentComponent');
+  }
+
   ngOnDestroy() {
     console.log('component destroyed');
   }
