@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   @ViewChild('webComponentContainer', {read: ElementRef, static: true}) wcContainer!: ElementRef<HTMLElement>;
 
   private _alwaysNew = false;
+  loadMax = 50;
 
   set alwaysNew(alwaysNew: boolean) {
     this._alwaysNew = alwaysNew;

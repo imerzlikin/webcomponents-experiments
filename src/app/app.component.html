@@ -54,7 +54,7 @@
   </div>
   <div class="buttons remote-web-components-buttons">
     <button class="button" (click)="remoteCustomElements.register()">Load</button>
-    <button class="button" (click)="remoteCustomElements.register(50)">Load Max 50</button>
+    <button class="button" (click)="remoteCustomElements.register(loadMax)">Load Max {{loadMax}}</button>
 <!--    <button class="button" (click)="remoteCustomElements.append()">Add</button>-->
     <button class="button" (click)="remoteCustomElements.clear()">Clear</button>
   </div>
